@@ -1,39 +1,39 @@
 package sac;
 
-public class Item implements Comparable<Object> {
+public class Item implements Comparable<Item> {
 	private String nom;
-	private float valeur, poids;
+	private double valeur, poids;
 
-	public Item(String n, float v, float p) {
+	public Item(String n, double p, double v) {
 		this.nom = n;
-		this.valeur = v;
 		this.poids = p;
+		this.valeur = v;
 	}
 
 	public String getNom() {
 		return nom;
 	}
 
-	public float getValeur() {
+	public double getValeur() {
 		return valeur;
 	}
 
-	public float getPoids() {
+	public double getPoids() {
 		return poids;
 	}
 
 	@Override
 	public String toString() {
-		return "" + nom;//+ " ; " + valeur + " ; " + poids;
+		return "" + nom + " ; " + poids + " ; " + valeur;
 	}
-
+	
 	/*
 	 * compareTo() Methode comparant les rapports (valeur/poids) de deux objets
 	 */
 	@Override
-	public int compareTo(Object o) {
-		float monrapport = valeur / poids;
-		float objetRapport = ((Item) o).getValeur() / ((Item) o).getPoids();
+	public int compareTo(Item arg0) {
+		double monrapport = valeur / poids;
+		double objetRapport = arg0.getValeur() / arg0.getPoids();
 		if (monrapport == objetRapport)
 			return 0;
 		if (monrapport > objetRapport)
