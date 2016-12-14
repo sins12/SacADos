@@ -5,44 +5,53 @@ import java.util.List;
 import sac.Item;
 
 public class Arbre {
-	Arbre sousArbreGauche;
-	Arbre sousArbreDroit;
-	List<Item> items;
+	Arbre sousAbGauche;
+	Arbre sousAbDroit;
+	List<Item> valeurNoeud;
 	
 	public Arbre(List<Item> items) {
-		this.sousArbreGauche = null;
-		this.sousArbreDroit = null;
-		this.items = items;
+		this.sousAbGauche = null;
+		this.sousAbDroit = null;
+		this.valeurNoeud = items;
 	}
 	
 	public Arbre(Arbre sousArbreGauche, Arbre sousArbreDroit, List<Item> items) {
 		this(items);
-		this.sousArbreGauche = sousArbreGauche;
-		this.sousArbreDroit = sousArbreDroit;
+		this.sousAbGauche = sousArbreGauche;
+		this.sousAbDroit = sousArbreDroit;
 	}
 
 	public Arbre getSousArbreGauche() {
-		return sousArbreGauche;
+		return sousAbGauche;
 	}
 
 	public void setSousArbreGauche(Arbre sousArbreGauche) {
-		this.sousArbreGauche = sousArbreGauche;
+		this.sousAbGauche = sousArbreGauche;
 	}
 
 	public Arbre getSousArbreDroit() {
-		return sousArbreDroit;
+		return sousAbDroit;
 	}
 
 	public void setSousArbreDroit(Arbre sousArbreDroit) {
-		this.sousArbreDroit = sousArbreDroit;
+		this.sousAbDroit = sousArbreDroit;
 	}
 
-	public List<Item> getValeur() {
-		return items;
+	public List<Item> getValeurNoeud() {
+		return valeurNoeud;
 	}
 
 	public void setValeur(List<Item> valeur) {
-		this.items = valeur;
+		this.valeurNoeud = valeur;
+	}
+	
+	public void getFeuille(List<Arbre> feuilles) {
+		if (this.getSousArbreDroit() == null && this.getSousArbreGauche() == null)
+			feuilles.add(this);
+		else {
+			this.getSousArbreDroit().getFeuille(feuilles);
+			this.getSousArbreGauche().getFeuille(feuilles);
+		}
 	}
 	
 	@Override
@@ -51,16 +60,16 @@ public class Arbre {
 	}
 	
 	public String toString(String s) {
-		if (sousArbreGauche != null) {
-			if (sousArbreDroit != null)
-				return (s + items + "\n" + sousArbreGauche.toString(s+"\t") + sousArbreDroit.toString(s+"\t"));
+		if (sousAbGauche != null) {
+			if (sousAbDroit != null)
+				return (s + valeurNoeud + "\n" + sousAbGauche.toString(s+"\t") + sousAbDroit.toString(s+"\t"));
 			else
-				return (s + items + "\n" + sousArbreGauche.toString(s+"\t")+"\n");
+				return (s + valeurNoeud + "\n" + sousAbGauche.toString(s+"\t")+"\n");
 		} else {
-			if (sousArbreDroit != null)
-				return (s + items + "\n\n" + sousArbreDroit.toString(s+"\t"));
+			if (sousAbDroit != null)
+				return (s + valeurNoeud + "\n\n" + sousAbDroit.toString(s+"\t"));
 			else
-				return (s + items + "\n");
+				return (s + valeurNoeud + "\n");
 		}
 	}
 	
